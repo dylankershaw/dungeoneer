@@ -53,7 +53,7 @@ export default function Page() {
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
                     const setHp = setHpGenerator(char.id);
-                    return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...char} handleDelete={deleteCharacter} setHp={setHp} /> : "player";
+                    return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...(char as Npc)} handleDelete={deleteCharacter} setHp={setHp} /> : "player";
                 })}
             </div>
         </>
