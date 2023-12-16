@@ -26,3 +26,7 @@ export interface StatModifiers {
     wis: number;
     cha: number;
 }
+
+export interface PlayerCharacter extends Character {
+    playerName: string;
+}
