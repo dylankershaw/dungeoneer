@@ -15,6 +15,7 @@ export interface Npc extends Character {
     race: string;
     raceNumber: number;
     statModifiers: StatModifiers;
+    hp: number;
 }
 
 export interface StatModifiers {

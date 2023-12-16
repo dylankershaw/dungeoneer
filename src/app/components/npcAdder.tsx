@@ -1,7 +1,7 @@
 import { useState, useEffect, FormEvent } from "react";
 
 import npcNames from "../data/npcNames.json";
-import { AdderInput } from "./adderInput";
+import { Input } from "./input";
 import { randomNonZeroInteger } from "../common/utils";
 import { Character, CharacterType, Npc, StatModifiers } from "../common/types";
 
@@ -15,6 +15,7 @@ export function NpcAdder(props: NpcAdderProps) {
     const [race, setRace] = useState<string>("Goblin");
     const [initiativeRoll, setInitiativeRoll] = useState<number>(0);
     const [armorClass, setArmorClass] = useState<number>(10);
+    const [hp, setHp] = useState<number>(10);
     const [statModifiers, setStatModifiers] = useState<StatModifiers>(DEFAULT_STATS);
 
     useEffect(() => {
@@ -37,6 +38,7 @@ export function NpcAdder(props: NpcAdderProps) {
             initiativeRoll,
             armorClass,
             statModifiers,
+            hp,
         };
 
         props.setCharacters([...props.characters, newNpc]);
@@ -46,16 +48,17 @@ export function NpcAdder(props: NpcAdderProps) {
 
     return (
         <form onSubmit={handleAddNpc} className="m-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center">
-            <AdderInput name="Name" setter={setName} value={name} />
-            <AdderInput name="Race" setter={setRace} value={race} />
-            <AdderInput type="number" name="AC" setter={(ac) => setArmorClass(parseInt(ac) || 0)} value={armorClass} />
+            <Input name="Name" setter={setName} value={name} />
+            <Input name="Race" setter={setRace} value={race} />
+            <Input type="number" name="AC" setter={(ac: string) => setArmorClass(parseInt(ac) || 0)} value={armorClass} />
+            <Input type="number" name="HP" setter={(hp: string) => setHp(parseInt(hp) || 0)} value={hp} />
             {Object.keys(statModifiers).map((sm) => {
                 return (
-                    <AdderInput
+                    <Input
                         type="number"
                         key={sm}
                         name={sm.toUpperCase()}
-                        setter={(value) => setStatModifiers({ ...statModifiers, [sm]: parseInt(value) || 0 })}
+                        setter={(value: string) => setStatModifiers({ ...statModifiers, [sm]: parseInt(value) || 0 })}
                         value={statModifiers[sm]}
                     />
                 );

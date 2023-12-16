@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { NpcCard } from "./components/npcCard";
 import { NpcAdder } from "./components/npcAdder";
 import { Character, CharacterType, Npc } from "./common/types";
+import { DeleteButtons } from "./components/deleteButtons";
 
 export default function Page() {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -29,20 +30,33 @@ export default function Page() {
         setCharacters(newCharacters);
     }
 
+    function setHpGenerator(id: number) {
+        return (hp: number) => {
+            const newCharacters = characters.map((c) => {
+                if (c.id === id) {
+                    const newCharacter = { ...c, hp };
+                    return newCharacter;
+                } else return c;
+            });
+            setCharacters(newCharacters);
+        };
+    }
+
     return (
-        <div>
+        <>
             <div className="flex justify-between">
                 <NpcAdder characters={characters} setCharacters={setCharacters} />
-                <button className="h-fit text-red-400 font-bold m-4 p-1 border-solid border-2 border-red-400" onClick={() => setCharacters([])}>
-                    Delete All Characters
-                </button>
+                <span className="flex flex-col">
+                    <DeleteButtons characters={characters} setCharacters={setCharacters} />
+                </span>
             </div>
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
-                    return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...char} handleDelete={deleteCharacter} /> : "player";
+                    const setHp = setHpGenerator(char.id);
+                    return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...char} handleDelete={deleteCharacter} setHp={setHp} /> : "player";
                 })}
             </div>
-        </div>
+        </>
     );
 }
 

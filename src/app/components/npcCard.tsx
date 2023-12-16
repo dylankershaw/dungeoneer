@@ -1,12 +1,14 @@
 import { CharacterType, Npc } from "../common/types";
+import { Input } from "./input";
 
 export interface NpcCardProps extends Npc {
     handleDelete(id: number): void;
+    setHp(hp: string): void;
 }
 
 export function NpcCard(props: NpcCardProps) {
     return (
-        <div className="rounded-md bg-slate-500 m-4 w-96 p-2">
+        <div className="rounded-md bg-slate-500 m-4 w-96 p-2 h-36">
             <div className="flex justify-between">
                 <span className="flex">
                     <p className="w-fit font-bold">{`${props.name} (${props.race} #${props.raceNumber})`}</p>
@@ -16,9 +18,12 @@ export function NpcCard(props: NpcCardProps) {
                     X
                 </button>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
                 <p>Initiative Roll: {props.initiativeRoll}</p>
-                <p>AC: {props.armorClass}</p>
+                <div className="flex items-center">
+                    <p>AC: {props.armorClass}</p>
+                    <Input name="HP" value={props.hp} type="number" setter={props.setHp} containerClassName="ml-4" />
+                </div>
             </div>
             <p className="underline w-fit mx-auto">Stat Modifiers</p>
             <div className="flex flex-col flex-wrap h-12">
@@ -31,6 +36,7 @@ export function NpcCard(props: NpcCardProps) {
                     );
                 })}
             </div>
+            {props.hp <= 0 && <p className="text-8xl relative -top-24 opacity-75 text-red-400 w-fit m-auto">DEAD</p>}
         </div>
     );
 }
