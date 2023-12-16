@@ -23,7 +23,7 @@ export default function Page() {
         if (typeof window === "undefined" || isFirstLoad) return;
         if (characters.length === 0) localStorage.removeItem("raceCounts");
         localStorage.setItem("characters", JSON.stringify(characters));
-    }, [characters]);
+    }, [characters, isFirstLoad]);
 
     function deleteCharacter(id: number) {
         const newCharacters = characters.filter((c) => c.id !== id);
@@ -31,7 +31,7 @@ export default function Page() {
     }
 
     function setHpGenerator(id: number) {
-        return (hp: number) => {
+        return (hp: string) => {
             const newCharacters = characters.map((c) => {
                 if (c.id === id) {
                     const newCharacter = { ...c, hp };
