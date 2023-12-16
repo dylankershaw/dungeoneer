@@ -45,14 +45,24 @@ export function NpcAdder(props: NpcAdderProps) {
     }
 
     return (
-        <form onSubmit={handleAddNpc} className="m-4">
-            <AdderInput name="name" setter={setName} value={name} />
-            <AdderInput name="race" setter={setRace} value={race} />
-            <AdderInput name="AC" setter={(ac) => setArmorClass(parseInt(ac) || 0)} value={armorClass} />
+        <form onSubmit={handleAddNpc} className="m-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center">
+            <AdderInput name="Name" setter={setName} value={name} />
+            <AdderInput name="Race" setter={setRace} value={race} />
+            <AdderInput type="number" name="AC" setter={(ac) => setArmorClass(parseInt(ac) || 0)} value={armorClass} />
             {Object.keys(statModifiers).map((sm) => {
-                return <AdderInput key={sm} name={sm} setter={(value) => setStatModifiers({ ...statModifiers, [sm]: parseInt(value) || 0 })} value={statModifiers[sm]} />;
+                return (
+                    <AdderInput
+                        type="number"
+                        key={sm}
+                        name={sm.toUpperCase()}
+                        setter={(value) => setStatModifiers({ ...statModifiers, [sm]: parseInt(value) || 0 })}
+                        value={statModifiers[sm]}
+                    />
+                );
             })}
-            <button type="submit">add NPC</button>
+            <button type="submit" className="font-bold border-solid border-2 p-1 m-1 text-green-400 border-green-400">
+                add NPC
+            </button>
         </form>
     );
 }

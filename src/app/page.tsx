@@ -31,8 +31,12 @@ export default function Page() {
 
     return (
         <div>
-            <button onClick={() => setCharacters([])}>delete all characters</button>
-            <NpcAdder characters={characters} setCharacters={setCharacters} />
+            <div className="flex justify-between">
+                <NpcAdder characters={characters} setCharacters={setCharacters} />
+                <button className="h-fit text-red-400 font-bold m-4 p-1 border-solid border-2 border-red-400" onClick={() => setCharacters([])}>
+                    Delete All Characters
+                </button>
+            </div>
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
                     return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...char} handleDelete={deleteCharacter} /> : "player";

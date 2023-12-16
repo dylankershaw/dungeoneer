@@ -1,15 +1,18 @@
 interface AdderInputProps {
     name: string;
     value: string | number;
+    type?: string;
     setter(value: string): void;
 }
 
 export function AdderInput(props: AdderInputProps) {
-    const { name, value, setter } = props;
+    const { name, value, type = "text", setter } = props;
+    const id = `input-${name}`;
+    const inputWidth = type === "number" ? "w-10" : "w-32";
     return (
-        <div>
-            <label htmlFor={name}>{name}</label>
-            <input name={name} value={value} onChange={(e) => setter(e.target.value)} className="text-slate-900 p-1" />
+        <div className="mr-6">
+            <label htmlFor={id}>{name}</label>
+            <input id={id} type={type} value={value} onChange={(e) => setter(e.target.value)} className={"text-slate-900 m-1 px-1" + " " + inputWidth} />
         </div>
     );
 }
