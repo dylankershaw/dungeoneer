@@ -28,7 +28,6 @@ export function NpcCard(props: NpcCardProps) {
                 </p>
                 <div className="flex items-center">
                     <p className="bg-slate-400 px-1">AC: {props.armorClass}</p>
-                    {/* TODO: make this clickable while dead */}
                     <Input
                         name="HP"
                         value={props.hp}
@@ -53,7 +52,7 @@ export function NpcCard(props: NpcCardProps) {
                 })}
             </div>
             {props.hp <= 0 && (
-                <p className="text-8xl relative -top-28 opacity-75 text-red-400 w-fit m-auto">
+                <p className="text-8xl relative -top-28 opacity-75 text-red-400 w-fit m-auto pointer-events-none">
                     DEAD
                 </p>
             )}

@@ -28,7 +28,6 @@ export function PlayerCard(props: PlayerCardProps) {
             </div>
             <div className="bg-slate-400 px-1 mt-4 w-fit mx-auto">
                 <label>Is Downed?</label>
-                {/* TODO: make this clickable while downed */}
                 <input
                     className="ml-2"
                     type="checkbox"
@@ -37,7 +36,7 @@ export function PlayerCard(props: PlayerCardProps) {
                 />
             </div>
             {props.isDowned && (
-                <p className="text-8xl relative -top-24 opacity-75 text-red-400 w-fit m-auto">
+                <p className="text-8xl relative -top-24 opacity-75 text-red-400 w-fit m-auto pointer-events-none">
                     DOWN
                 </p>
             )}
