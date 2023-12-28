@@ -5,13 +5,18 @@ interface DeleteButtonsProps {
     characters: Character[];
 }
 
-export function DeleteButtons({ setCharacters, characters }: DeleteButtonsProps) {
+export function DeleteButtons({
+    setCharacters,
+    characters,
+}: DeleteButtonsProps) {
     function deleteAllCharacters() {
         setCharacters([]);
     }
 
     function deleteNpcs() {
-        const newCharacters = characters.filter((c) => c.type !== CharacterType.NPC);
+        const newCharacters = characters.filter(
+            (c) => c.type !== CharacterType.NPC
+        );
         setCharacters(newCharacters);
     }
 
@@ -27,4 +32,5 @@ export function DeleteButtons({ setCharacters, characters }: DeleteButtonsProps)
     );
 }
 
-const CLASS_NAMES = "h-fit text-red-400 font-bold mt-2 mr-2 p-1 border-solid border-2 border-red-400";
+const CLASS_NAMES =
+    "h-fit text-red-400 font-bold mt-2 mr-2 p-1 border-solid border-2 border-red-400";

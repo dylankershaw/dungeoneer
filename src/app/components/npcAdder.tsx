@@ -16,7 +16,8 @@ export function NpcAdder(props: NpcAdderProps) {
     const [initiativeRoll, setInitiativeRoll] = useState<number>(0);
     const [armorClass, setArmorClass] = useState<number>(10);
     const [hp, setHp] = useState<number>(10);
-    const [statModifiers, setStatModifiers] = useState<StatModifiers>(DEFAULT_STATS);
+    const [statModifiers, setStatModifiers] =
+        useState<StatModifiers>(DEFAULT_STATS);
 
     useEffect(() => {
         randomizeStats();
@@ -47,23 +48,44 @@ export function NpcAdder(props: NpcAdderProps) {
     }
 
     return (
-        <form onSubmit={handleAddNpc} className="m-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center">
+        <form
+            onSubmit={handleAddNpc}
+            className="m-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center"
+        >
             <Input name="Name" setter={setName} value={name} />
             <Input name="Race" setter={setRace} value={race} />
-            <Input type="number" name="AC" setter={(ac: string) => setArmorClass(parseInt(ac) || 0)} value={armorClass} />
-            <Input type="number" name="HP" setter={(hp: string) => setHp(parseInt(hp) || 0)} value={hp} />
+            <Input
+                type="number"
+                name="AC"
+                setter={(ac: string) => setArmorClass(parseInt(ac) || 0)}
+                value={armorClass}
+            />
+            <Input
+                type="number"
+                name="HP"
+                setter={(hp: string) => setHp(parseInt(hp) || 0)}
+                value={hp}
+            />
             {Object.keys(statModifiers).map((sm) => {
                 return (
                     <Input
                         type="number"
                         key={sm}
                         name={sm.toUpperCase()}
-                        setter={(value: string) => setStatModifiers({ ...statModifiers, [sm]: parseInt(value) || 0 })}
+                        setter={(value: string) =>
+                            setStatModifiers({
+                                ...statModifiers,
+                                [sm]: parseInt(value) || 0,
+                            })
+                        }
                         value={statModifiers[sm]}
                     />
                 );
             })}
-            <button type="submit" className="font-bold border-solid border-2 p-1 m-1 text-green-400 border-green-400">
+            <button
+                type="submit"
+                className="font-bold border-solid border-2 p-1 m-1 text-green-400 border-green-400"
+            >
                 add NPC
             </button>
         </form>
@@ -96,6 +118,8 @@ function getRaceCount(race: string): number {
 function incrementRaceCount(race: string): void {
     const normalizedRace = race.toLowerCase();
     const raceCounts = getRaceCountsFromLocalStorage();
-    raceCounts[normalizedRace] ? (raceCounts[normalizedRace] += 1) : (raceCounts[normalizedRace] = 1);
+    raceCounts[normalizedRace]
+        ? (raceCounts[normalizedRace] += 1)
+        : (raceCounts[normalizedRace] = 1);
     localStorage.setItem("raceCounts", JSON.stringify(raceCounts));
 }

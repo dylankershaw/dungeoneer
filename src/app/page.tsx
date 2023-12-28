@@ -45,15 +45,30 @@ export default function Page() {
     return (
         <>
             <div className="flex justify-between">
-                <NpcAdder characters={characters} setCharacters={setCharacters} />
+                <NpcAdder
+                    characters={characters}
+                    setCharacters={setCharacters}
+                />
                 <span className="flex flex-col">
-                    <DeleteButtons characters={characters} setCharacters={setCharacters} />
+                    <DeleteButtons
+                        characters={characters}
+                        setCharacters={setCharacters}
+                    />
                 </span>
             </div>
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
                     const setHp = setHpGenerator(char.id);
-                    return char.type === CharacterType.NPC ? <NpcCard key={char.id} {...(char as Npc)} handleDelete={deleteCharacter} setHp={setHp} /> : "player";
+                    return char.type === CharacterType.NPC ? (
+                        <NpcCard
+                            key={char.id}
+                            {...(char as Npc)}
+                            handleDelete={deleteCharacter}
+                            setHp={setHp}
+                        />
+                    ) : (
+                        "player"
+                    );
                 })}
             </div>
         </>
@@ -68,9 +83,24 @@ function getCharactersFromLocalStorage(): Character[] {
 
 function sortCharacters(characters: Character[]) {
     return characters.sort((a, b) => {
-        if (b.initiativeRoll - a.initiativeRoll !== 0) return b.initiativeRoll - a.initiativeRoll; // desc. sort on initiativeRoll
-        else if (a.type === CharacterType.Player && b.type === CharacterType.NPC) return -1; // priority to player
-        else if (a.type === CharacterType.NPC && b.type === CharacterType.Player) return 1; // priority to player
-        else return a.id - b.id; // if initiativeRoll and type are the same, sort based on ID
+        if (b.initiativeRoll - a.initiativeRoll !== 0) {
+            // desc. sort on initiativeRoll
+            return b.initiativeRoll - a.initiativeRoll;
+        } else if (
+            a.type === CharacterType.Player &&
+            b.type === CharacterType.NPC
+        ) {
+            // priority to player
+            return -1;
+        } else if (
+            a.type === CharacterType.NPC &&
+            b.type === CharacterType.Player
+        ) {
+            // priority to player
+            return 1;
+        } else {
+            // if initiativeRoll and type are the same, sort based on ID
+            return a.id - b.id;
+        }
     });
 }
