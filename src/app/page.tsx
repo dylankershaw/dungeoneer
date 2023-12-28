@@ -1,12 +1,12 @@
 "use client";
 
-// TODO: add playerAdder
-
 import { useState, useEffect } from "react";
 import { NpcCard } from "./components/npcCard";
 import { NpcAdder } from "./components/npcAdder";
-import { Character, CharacterType, Npc } from "./common/types";
+import { Character, CharacterType, Npc, Player } from "./common/types";
 import { DeleteButtons } from "./components/deleteButtons";
+import { PlayerAdder } from "./components/playerAdder";
+import { PlayerCard } from "./components/playerCard";
 
 export default function Page() {
     const [characters, setCharacters] = useState<Character[]>([]);
@@ -42,13 +42,31 @@ export default function Page() {
         };
     }
 
+    function setIsDownedGenerator(id: number) {
+        return (isDowned: boolean) => {
+            const newCharacters = characters.map((c) => {
+                if (c.id === id) {
+                    const newCharacter = { ...c, isDowned };
+                    return newCharacter;
+                } else return c;
+            });
+            setCharacters(newCharacters);
+        };
+    }
+
     return (
         <>
             <div className="flex justify-between">
-                <NpcAdder
-                    characters={characters}
-                    setCharacters={setCharacters}
-                />
+                <div className="m-4">
+                    <PlayerAdder
+                        characters={characters}
+                        setCharacters={setCharacters}
+                    />
+                    <NpcAdder
+                        characters={characters}
+                        setCharacters={setCharacters}
+                    />
+                </div>
                 <span className="flex flex-col">
                     <DeleteButtons
                         characters={characters}
@@ -59,6 +77,7 @@ export default function Page() {
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
                     const setHp = setHpGenerator(char.id);
+                    const setIsDowned = setIsDownedGenerator(char.id);
                     return char.type === CharacterType.NPC ? (
                         <NpcCard
                             key={char.id}
@@ -67,7 +86,12 @@ export default function Page() {
                             setHp={setHp}
                         />
                     ) : (
-                        "player"
+                        <PlayerCard
+                            key={char.id}
+                            {...(char as Player)}
+                            handleDelete={deleteCharacter}
+                            setIsDowned={setIsDowned}
+                        />
                     );
                 })}
             </div>

@@ -3,7 +3,6 @@ export interface Character {
     name: string;
     initiativeRoll: number;
     type: CharacterType;
-    armorClass: number;
 }
 
 export enum CharacterType {
@@ -16,6 +15,7 @@ export interface Npc extends Character {
     raceNumber: number;
     statModifiers: StatModifiers;
     hp: number;
+    armorClass: number;
 }
 
 export interface StatModifiers {
@@ -28,6 +28,6 @@ export interface StatModifiers {
     cha: number;
 }
 
-export interface PlayerCharacter extends Character {
-    playerName: string;
+export interface Player extends Character {
+    isDowned: boolean
 }

@@ -33,4 +33,4 @@ export function DeleteButtons({
 }
 
 const CLASS_NAMES =
-    "h-fit text-red-400 font-bold mt-2 mr-2 p-1 border-solid border-2 border-red-400";
+    "h-fit text-red-400 font-bold mt-4 mr-4 p-1 border-solid border-2 border-red-400";

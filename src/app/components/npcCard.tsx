@@ -8,11 +8,11 @@ export interface NpcCardProps extends Npc {
 
 export function NpcCard(props: NpcCardProps) {
     return (
-        <div className="rounded-md bg-slate-500 m-4 w-96 p-2 h-36">
+        <div className="rounded-md bg-slate-500 m-4 w-80 p-2 h-36">
             <div className="flex justify-between">
                 <span className="flex">
-                    <p className="w-fit font-bold">{`${props.name} (${props.race} #${props.raceNumber})`}</p>
-                    <p className="ml-2 px-1 bg-red-400">NPC</p>
+                    <p className="px-1 bg-red-400 h-fit">NPC</p>
+                    <p className="ml-2 w-fit font-bold">{`${props.name} (${props.race} #${props.raceNumber})`}</p>
                 </span>
                 <button
                     title="Delete NPC"
@@ -23,20 +23,25 @@ export function NpcCard(props: NpcCardProps) {
                 </button>
             </div>
             <div className="flex justify-between items-center">
-                <p>Initiative Roll: {props.initiativeRoll}</p>
+                <p className="bg-slate-400 px-1 ml-1">
+                    Initiative Roll: {props.initiativeRoll}
+                </p>
                 <div className="flex items-center">
-                    <p>AC: {props.armorClass}</p>
+                    <p className="bg-slate-400 px-1">AC: {props.armorClass}</p>
+                    {/* TODO: make this clickable while dead */}
                     <Input
                         name="HP"
                         value={props.hp}
                         type="number"
                         setter={props.setHp}
-                        containerClassName="ml-4"
+                        containerClassName="ml-4 bg-slate-400 px-1"
                     />
                 </div>
             </div>
-            <p className="underline w-fit mx-auto">Stat Modifiers</p>
-            <div className="flex flex-col flex-wrap h-12">
+            <p className="underline w-fit mx-auto bg-slate-400 px-1 mt-1">
+                Stat Modifiers
+            </p>
+            <div className="flex flex-col flex-wrap h-12 bg-slate-400 items-center">
                 {Object.keys(props.statModifiers).map((sm) => {
                     const value = props.statModifiers[sm];
                     return (
@@ -48,7 +53,7 @@ export function NpcCard(props: NpcCardProps) {
                 })}
             </div>
             {props.hp <= 0 && (
-                <p className="text-8xl relative -top-24 opacity-75 text-red-400 w-fit m-auto">
+                <p className="text-8xl relative -top-28 opacity-75 text-red-400 w-fit m-auto">
                     DEAD
                 </p>
             )}

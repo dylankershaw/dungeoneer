@@ -50,7 +50,7 @@ export function NpcAdder(props: NpcAdderProps) {
     return (
         <form
             onSubmit={handleAddNpc}
-            className="m-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center"
+            className="mt-4 flex flex-wrap bg-slate-500 w-fit p-1 rounded-md items-center"
         >
             <Input name="Name" setter={setName} value={name} />
             <Input name="Race" setter={setRace} value={race} />
