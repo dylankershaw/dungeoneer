@@ -16,7 +16,7 @@ export function PlayerCard(props: PlayerCardProps) {
                     <p className="ml-2 w-fit font-bold">{props.name}</p>
                 </span>
                 <button
-                    title="Delete NPC"
+                    title="Delete player"
                     className="text-red-400 font-bold outline-1"
                     onClick={() => props.handleDelete(props.id)}
                 >
