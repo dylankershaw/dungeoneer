@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Player } from "../common/types";
+import { DeleteConfirmationModal } from "./deleteConfirmationModal";
 
 interface PlayerCardProps extends Player {
     handleDelete(id: number): void;
@@ -7,6 +8,8 @@ interface PlayerCardProps extends Player {
 }
 
 export function PlayerCard(props: PlayerCardProps) {
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
     return (
         <div className="rounded-md bg-slate-500 m-4 w-80 p-2 h-36">
             {" "}
@@ -15,10 +18,18 @@ export function PlayerCard(props: PlayerCardProps) {
                     <p className="px-1 bg-green-400 h-fit">Player</p>
                     <p className="ml-2 w-fit font-bold">{props.name}</p>
                 </span>
+                {showDeleteConfirmation && (
+                    <DeleteConfirmationModal
+                        handleDelete={() => props.handleDelete(props.id)}
+                        hideModal={() => setShowDeleteConfirmation(false)}
+                    >
+                        Delete {props.name}?
+                    </DeleteConfirmationModal>
+                )}
                 <button
                     title="Delete player"
                     className="text-red-400 font-bold outline-1"
-                    onClick={() => props.handleDelete(props.id)}
+                    onClick={() => setShowDeleteConfirmation(true)}
                 >
                     X
                 </button>

@@ -1,4 +1,6 @@
-import { CharacterType, Npc } from "../common/types";
+import { useState } from "react";
+import { Npc } from "../common/types";
+import { DeleteConfirmationModal } from "./deleteConfirmationModal";
 import { Input } from "./input";
 
 export interface NpcCardProps extends Npc {
@@ -7,6 +9,8 @@ export interface NpcCardProps extends Npc {
 }
 
 export function NpcCard(props: NpcCardProps) {
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
     return (
         <div className="rounded-md bg-slate-500 m-4 w-80 p-2 h-36">
             <div className="flex justify-between">
@@ -14,10 +18,18 @@ export function NpcCard(props: NpcCardProps) {
                     <p className="px-1 bg-red-400 h-fit">NPC</p>
                     <p className="ml-2 w-fit font-bold">{`${props.name} (${props.race} #${props.raceNumber})`}</p>
                 </span>
+                {showDeleteConfirmation && (
+                    <DeleteConfirmationModal
+                        handleDelete={() => props.handleDelete(props.id)}
+                        hideModal={() => setShowDeleteConfirmation(false)}
+                    >
+                        Delete {props.name}?
+                    </DeleteConfirmationModal>
+                )}
                 <button
                     title="Delete NPC"
                     className="text-red-400 font-bold outline-1"
-                    onClick={() => props.handleDelete(props.id)}
+                    onClick={() => setShowDeleteConfirmation(true)}
                 >
                     X
                 </button>
