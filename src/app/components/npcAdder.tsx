@@ -20,12 +20,11 @@ export function NpcAdder(props: NpcAdderProps) {
         useState<StatModifiers>(DEFAULT_STATS);
 
     useEffect(() => {
-        randomizeStats();
+        randomizeName();
     }, []);
 
-    function randomizeStats() {
+    function randomizeName() {
         setName(getRandomNpcName());
-        setInitiativeRoll(randomNonZeroInteger(20));
     }
 
     function handleAddNpc(e: FormEvent<HTMLFormElement>): void {
@@ -36,7 +35,7 @@ export function NpcAdder(props: NpcAdderProps) {
             name,
             race,
             raceNumber: getRaceCount(race) + 1,
-            initiativeRoll,
+            initiativeRoll: randomNonZeroInteger(20) + statModifiers.dex,
             armorClass,
             statModifiers,
             hp,
@@ -44,7 +43,7 @@ export function NpcAdder(props: NpcAdderProps) {
 
         props.setCharacters([...props.characters, newNpc]);
         incrementRaceCount(race);
-        randomizeStats();
+        randomizeName();
     }
 
     return (
