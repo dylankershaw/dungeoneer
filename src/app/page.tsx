@@ -30,23 +30,11 @@ export default function Page() {
         setCharacters(newCharacters);
     }
 
-    function setHpGenerator(id: number) {
-        return (hp: string) => {
+    function statSetterGenerator<T>(id: number, statName: string) {
+        return (statValue: T) => {
             const newCharacters = characters.map((c) => {
                 if (c.id === id) {
-                    const newCharacter = { ...c, hp };
-                    return newCharacter;
-                } else return c;
-            });
-            setCharacters(newCharacters);
-        };
-    }
-
-    function setIsDownedGenerator(id: number) {
-        return (isDowned: boolean) => {
-            const newCharacters = characters.map((c) => {
-                if (c.id === id) {
-                    const newCharacter = { ...c, isDowned };
+                    const newCharacter = { ...c, [statName]: statValue };
                     return newCharacter;
                 } else return c;
             });
@@ -76,8 +64,18 @@ export default function Page() {
             </div>
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
+                    const setHp = statSetterGenerator(char.id, "hp");
                     const setHp = setHpGenerator(char.id);
-                    const setIsDowned = setIsDownedGenerator(char.id);
+                    const setIsDowned = statSetterGenerator(
+                        char.id,
+                        "isDowned"
+                    );
+
+                    const setInitiativeRoll = statSetterGenerator(
+                        char.id,
+                        "initiativeRoll"
+                    );
+
                     return char.type === CharacterType.NPC ? (
                         <NpcCard
                             key={char.id}
@@ -91,6 +89,7 @@ export default function Page() {
                             {...(char as Player)}
                             handleDelete={deleteCharacter}
                             setIsDowned={setIsDowned}
+                            setInitiativeRoll={setInitiativeRoll}
                         />
                     );
                 })}

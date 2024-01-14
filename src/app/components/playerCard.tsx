@@ -5,10 +5,18 @@ import { DeleteConfirmationModal } from "./deleteConfirmationModal";
 interface PlayerCardProps extends Player {
     handleDelete(id: number): void;
     setIsDowned(isDowned: boolean): void;
+    setInitiativeRoll(initiativeRoll: number): void;
 }
 
 export function PlayerCard(props: PlayerCardProps) {
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+    function handleInitiativeRollChange(
+        e: React.ChangeEvent<HTMLInputElement>
+    ) {
+        e.preventDefault();
+        props.setInitiativeRoll(parseInt(e.target.value) || 0);
+    }
 
     return (
         <div className="rounded-md bg-slate-500 m-4 w-80 p-2 h-36">
@@ -18,6 +26,7 @@ export function PlayerCard(props: PlayerCardProps) {
                     <p className="px-1 bg-green-400 h-fit">Player</p>
                     <p className="ml-2 w-fit font-bold">{props.name}</p>
                 </span>
+                <NoteBox notes={props.notes} setNotes={props.setNotes} />
                 {showDeleteConfirmation && (
                     <DeleteConfirmationModal
                         handleDelete={() => props.handleDelete(props.id)}
@@ -35,7 +44,13 @@ export function PlayerCard(props: PlayerCardProps) {
                 </button>
             </div>
             <div className="bg-slate-400 px-1 mt-4 w-fit mx-auto">
-                Initiative Roll: {props.initiativeRoll}
+                Initiative Roll:
+                <input
+                    type="number"
+                    value={props.initiativeRoll}
+                    className="m-2 w-12 text-slate-900 pl-1"
+                    onChange={handleInitiativeRollChange}
+                />
             </div>
             <div className="bg-slate-400 px-1 mt-4 w-fit mx-auto">
                 <label>Is Downed?</label>
