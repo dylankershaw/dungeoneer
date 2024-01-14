@@ -39,6 +39,7 @@ export function NpcAdder(props: NpcAdderProps) {
             armorClass,
             statModifiers,
             hp,
+            notes: ""
         };
 
         props.setCharacters([...props.characters, newNpc]);

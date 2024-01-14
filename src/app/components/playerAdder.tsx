@@ -20,6 +20,7 @@ export function PlayerAdder(props: PlayerAdderProps) {
             name: characterName,
             initiativeRoll,
             isDowned: false,
+            notes: "",
         };
 
         props.setCharacters([...props.characters, newPlayer]);

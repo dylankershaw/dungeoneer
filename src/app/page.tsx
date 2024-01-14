@@ -65,7 +65,7 @@ export default function Page() {
             <div className="flex flex-wrap">
                 {sortedCharacters.map((char) => {
                     const setHp = statSetterGenerator(char.id, "hp");
-                    const setHp = setHpGenerator(char.id);
+                    const setNotes = statSetterGenerator(char.id, "notes");
                     const setIsDowned = statSetterGenerator(
                         char.id,
                         "isDowned"
@@ -82,6 +82,7 @@ export default function Page() {
                             {...(char as Npc)}
                             handleDelete={deleteCharacter}
                             setHp={setHp}
+                            setNotes={setNotes}
                         />
                     ) : (
                         <PlayerCard
@@ -89,6 +90,7 @@ export default function Page() {
                             {...(char as Player)}
                             handleDelete={deleteCharacter}
                             setIsDowned={setIsDowned}
+                            setNotes={setNotes}
                             setInitiativeRoll={setInitiativeRoll}
                         />
                     );

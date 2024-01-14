@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Player } from "../common/types";
 import { DeleteConfirmationModal } from "./deleteConfirmationModal";
+import { NoteBox } from "./noteBox";
 
 interface PlayerCardProps extends Player {
     handleDelete(id: number): void;
     setIsDowned(isDowned: boolean): void;
+    setNotes(notes: string): void;
     setInitiativeRoll(initiativeRoll: number): void;
 }
 

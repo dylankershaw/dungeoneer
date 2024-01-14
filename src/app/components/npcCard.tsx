@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Npc } from "../common/types";
 import { DeleteConfirmationModal } from "./deleteConfirmationModal";
 import { Input } from "./input";
+import { NoteBox } from "./noteBox";
 
 export interface NpcCardProps extends Npc {
     handleDelete(id: number): void;
     setHp(hp: string): void;
+    setNotes(notes: string): void;
 }
 
 export function NpcCard(props: NpcCardProps) {
@@ -18,6 +20,7 @@ export function NpcCard(props: NpcCardProps) {
                     <p className="px-1 bg-red-400 h-fit">NPC</p>
                     <p className="ml-2 w-fit font-bold">{`${props.name} (${props.race} #${props.raceNumber})`}</p>
                 </span>
+                <NoteBox setNotes={props.setNotes} notes={props.notes} />
                 {showDeleteConfirmation && (
                     <DeleteConfirmationModal
                         handleDelete={() => props.handleDelete(props.id)}

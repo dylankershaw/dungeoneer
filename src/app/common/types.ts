@@ -3,6 +3,7 @@ export interface Character {
     name: string;
     initiativeRoll: number;
     type: CharacterType;
+    notes: string;
 }
 
 export enum CharacterType {
