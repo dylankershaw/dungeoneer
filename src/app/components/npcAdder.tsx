@@ -86,7 +86,7 @@ export function NpcAdder(props: NpcAdderProps) {
                 type="submit"
                 className="font-bold border-solid border-2 p-1 m-1 text-green-400 border-green-400"
             >
-                add NPC
+                Add NPC
             </button>
         </form>
     );

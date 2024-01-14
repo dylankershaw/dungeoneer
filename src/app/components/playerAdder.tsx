@@ -48,7 +48,7 @@ export function PlayerAdder(props: PlayerAdderProps) {
                 className="font-bold border-solid border-2 p-1 m-1 text-green-400 border-green-400"
                 type="submit"
             >
-                add player
+                Add Player
             </button>
         </form>
     );
